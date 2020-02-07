@@ -4,43 +4,112 @@ const { server } = require('../lib/server');
 const supertest = require('supertest');
 const mockRequest = supertest(server);
 
-describe('web server', () => {
-  it('responds with a 500 on error', () => {
+describe('  THE SERVER TESTING', () => {
+
+  it('THERE IS 500 ERROR ', () => {
     return mockRequest
       .get('/error')
-      .then(results =>{
-        expect(results.status).toBe(500);
-      })
-      .catch(console.error);
+      .then(test => {
+        expect(test.status).toBe(500);
+      }).catch(err => console.error(err));
   });
 
-  it('responds with a 404 if a route is not found', () => {
+  it('(404 Error) the route is not found  ', () => {
+
     return mockRequest
-      .get('/some-route-that-doesnt-exist')
-      .then(results =>{
-        expect(results.status).toBe(404);
-      })
-      .catch(console.error);
+      .get('/main')
+      .then(test => {
+        expect(test.status).toBe(404);
+      }).catch(err => console.error(err));
+  }); 
+
+  it('404 Error , Invalid method ', () => {
+    return mockRequest
+      .delete('/')
+      .then(test => {
+        expect(test.status).toBe(404);
+      }).catch(err => console.error(err));
   });
 
-  it('respond properly to a get request to /api/v1/categories', () => {
+  // categories
+  it('get categories Routes is 200  ', () => {
     return mockRequest
       .get('/api/v1/categories')
-      .then(results => {
-        expect(results.status).toBe(200);
-        console.log('************************', results.body);
-        expect(typeof results.body.results).toBe('object');
-      });
+      .then(test => {
+        expect(test.status).toBe(200);
+      }).catch(err => console.error(err));
   });
 
-  it('respond properly to a post request to /api/v1/categories', () => {
+  it('get categories/id Routes is 200 ', () => {
+    return mockRequest
+      .get('/api/v1/categories/1')
+      .then(test => {
+        expect(test.status).toBe(200);
+      }).catch(err => console.error(err));
+  });
+
+  it('post categories Routes is 200  ', () => {
     return mockRequest
       .post('/api/v1/categories')
-      .send({ name: 'test name' })
-      .then(results => {
-        expect(results.status).toBe(201);
-        expect(results.body.name).toEqual('test name');
-        expect(results.body).toBeDefined();
-      });
+      .then(test => {
+        expect(test.status).toBe(200);
+      }).catch(err => console.error(err));
   });
-})
+
+  it('post categories/id Routes is 200  ', () => {
+    return mockRequest
+      .put('/api/v1/categories/1')
+      .then(test => {
+        expect(test.status).toBe(200);
+      }).catch(err => console.error(err));
+  });
+
+  it('delete categories Routes is 200  ', () => {
+    return mockRequest
+      .delete('/api/v1/categories/1')
+      .then(test => {
+        expect(test.status).toBe(200);
+      }).catch(err => console.error(err));
+  });
+
+  // Products
+  it('get Products  Routes is 200  ', () => {
+    return mockRequest
+      .get('/api/v1/products')
+      .then(test => {
+        expect(test.status).toBe(200);
+      }).catch(err => console.error(err));
+  });
+
+  it('get Products/id  Routes is 200  ', () => {
+    return mockRequest
+      .get('/api/v1/products/2')
+      .then(test => {
+        expect(test.status).toBe(200);
+      }).catch(err => console.error(err));
+  });
+
+  it('post Products  Routes is 200   ', () => {
+    return mockRequest
+      .post('/api/v1/products')
+      .then(test => {
+        expect(test.status).toBe(200);
+      }).catch(err => console.error(err));
+  });
+
+  it('put Products  Routes is 200 ', () => {
+    return mockRequest
+      .put('/api/v1/products/1')
+      .then(test => {
+        expect(test.status).toBe(200);
+      }).catch(err => console.error(err));
+  });
+
+  it('delete Products  Routes is 200 ', () => {
+    return mockRequest
+      .delete('/api/v1/products/1')
+      .then(test => {
+        expect(test.status).toBe(200);
+      }).catch(err => console.error(err));
+  });
+});
