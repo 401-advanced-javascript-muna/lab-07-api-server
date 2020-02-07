@@ -21,7 +21,7 @@ describe('  THE SERVER TESTING', () => {
       .then(test => {
         expect(test.status).toBe(404);
       }).catch(err => console.error(err));
-  }); 
+  });
 
   it('404 Error , Invalid method ', () => {
     return mockRequest
